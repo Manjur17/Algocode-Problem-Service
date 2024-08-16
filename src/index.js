@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 
 
-// If any request comes and route starts with /api, we map it to apiRouter
+// If any request comes and route starts with /api, we map it to apiRouter   
 app.use('/api', apiRouter);
 
 
