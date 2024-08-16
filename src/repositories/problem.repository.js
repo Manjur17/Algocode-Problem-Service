@@ -6,7 +6,6 @@ class ProblemRepository {
 
     async createProblem(problemData) {
         try {
-
             const problem = await Problem.create({
                 title: problemData.title,
                 description: problemData.description,
@@ -14,7 +13,7 @@ class ProblemRepository {
             });
 
             return problem;
-        } catch(error) {
+        } catch (error) {
             console.log(error);
             throw error;
         }
@@ -24,7 +23,7 @@ class ProblemRepository {
         try {
             const problems = await Problem.find({});
             return problems;
-        } catch(error) {
+        } catch (error) {
             console.log(error);
             throw error;
         }
@@ -33,7 +32,7 @@ class ProblemRepository {
     async getProblem(id) {
         try {
             const problem = await Problem.findById(id);
-            if(!problem) {
+            if (!problem) {
                 throw new NotFound("Problem", id);
             }
             return problem;
@@ -41,16 +40,30 @@ class ProblemRepository {
             console.log(error);
             throw error;
         }
-    } 
+    }
 
     async deleteProblem(id) {
         try {
             const deletedProblem = await Problem.findByIdAndDelete(id);
-            if(!deletedProblem) {
+            if (!deletedProblem) {
                 logger.error(`Problem.Repository: Problem with id: ${id} not found in the db`);
                 throw new NotFound("problem", id);
             }
             return deletedProblem;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
+
+    async updateProblem(id) {
+        try {
+            const updateProblem = await Problem.findByIdAndUpdate(id, updatedData, { new: true });
+            if (!updateProblem) {
+                logger.error(`Problem.Repository: Problem with id: ${id} not found in the db`);
+                throw new NotFound("problem", id);
+            }
+            return updateProblem;
         } catch (error) {
             console.log(error);
             throw error;

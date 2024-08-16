@@ -6,7 +6,6 @@ const apiRouter = require('./routes');
 const errorHandler = require('./utils/errorHandler');
 const connectToDB = require('./config/db.config');
 
-
 const app = express();
 
 app.use(bodyParser.json());
@@ -23,6 +22,7 @@ app.get('/ping', (req, res) => {
 });
 
 // last middleware if any error comes
+//if we don't keep it at last then the default error handler middleware of express is called
 app.use(errorHandler);
 
 app.listen(PORT, async () => {
